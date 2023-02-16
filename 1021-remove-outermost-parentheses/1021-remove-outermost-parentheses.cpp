@@ -7,11 +7,13 @@ public:
         {
             if(c=='(')
             {
-                if(count++) str+='(';
+                count++;
+                if(count>1) str+='(';
             }
             else 
             {
-                if(--count) str+=')';
+                count--;
+                if(count>0) str+=')';
             }
         }
         return str;
