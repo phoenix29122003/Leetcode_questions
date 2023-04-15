@@ -13,8 +13,8 @@ public:
             sum=sum%10;
             curr->next=new ListNode(sum);
             curr=curr->next;
-            l1=l1?l1->next:nullptr;
-            l2=l2?l2->next:nullptr;
+            l1=l1?l1->next:NULL;
+            l2=l2?l2->next:NULL;
         }
         return dum->next;
     }
