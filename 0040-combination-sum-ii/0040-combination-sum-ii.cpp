@@ -6,9 +6,7 @@ public:
             ans.push_back(ds);
             return;
         }
-        else if(sum>target){
-            return;
-        }
+        else if(sum>target) return;
         for(int i=idx;i<n;i++)
         {
             if(i!=idx && candidates[i]==candidates[i-1]) continue;
