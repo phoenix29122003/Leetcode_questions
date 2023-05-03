@@ -1,16 +1,16 @@
 class Solution {
 public:
-    void solve(int n,int k,int idx,vector<int>&ds,vector<vector<int>>&ans)
+    void solve(int n,int k,int i,vector<int>&ds,vector<vector<int>>&ans)
     {
         if(ds.size()==k)
         {
             ans.push_back(ds);
             return;
         }
-        for(int i=idx;i<=n;i++)
+        for(int j=i;j<=n;j++)
         {
-            ds.push_back(i);
-            solve(n,k,i+1,ds,ans);
+            ds.push_back(j);
+            solve(n,k,j+1,ds,ans);
             ds.pop_back();
         }
     }
