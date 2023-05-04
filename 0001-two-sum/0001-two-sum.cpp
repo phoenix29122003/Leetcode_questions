@@ -9,9 +9,9 @@ public:
             {
                 ans.push_back(i);
                 ans.push_back(mp[target-nums[i]]);
-                return ans;
+                break;
             }
-            mp[nums[i]]=i;
+            else mp[nums[i]]=i;
         }
         return ans;
     }
