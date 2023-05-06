@@ -28,6 +28,7 @@ public:
                 else if(board[i][j]==1)
                 {
                     if(c<2 || c>3) board[i][j]=3;
+                    if(c==2 || c==3) board[i][j]=1;
                 }
             }
         }
