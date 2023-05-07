@@ -1,30 +1,31 @@
 class Solution {
 public:
-    void findCombination(vector<vector<int>>& res, const int order, const int target, vector<int>& local, const vector<int>& num)
+    
+void solve(vector<int>& num,int target,int idx,vector<int>& ds,vector<vector<int>>& ans)
     {
         if(target==0)
         {
-            res.push_back(local);
+            ans.push_back(ds);
             return;
         }
         else
         {
-            for(int i = order;i<num.size();i++) 
+            for(int i=idx;i<num.size();i++) 
             {
                 if(num[i]>target) return;
-                if(i&&num[i]==num[i-1]&&i>order) continue; 
-                local.push_back(num[i]),
-                findCombination(res,i+1,target-num[i],local,num); 
-                local.pop_back();
+                if(i&&num[i]==num[i-1]&&i>idx) continue; 
+                ds.push_back(num[i]),
+                solve(num,target-num[i],i+1,ds,ans); 
+                ds.pop_back();
             }
         }
     }
     vector<vector<int>> combinationSum2(vector<int> &num, int target) 
     {
-        vector<vector<int>> res;
+        vector<vector<int>>ans;
+        vector<int>ds;
         sort(num.begin(),num.end());
-        vector<int> local;
-        findCombination(res, 0, target, local, num);
-        return res;
+        solve(num,target,0,ds,ans);
+        return ans;
     }
 };
