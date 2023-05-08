@@ -1,18 +1,20 @@
 class Solution {
 public:
-    int dp[102];
-    int solve(int idx,string s,int n)
+    int solve(string s,int idx,vector<int>&dp)
     {
-        if(idx>=n) return 1;
-        if(idx<n && s[idx]=='0') return 0;
-        if(dp[idx]!=-1) return dp[idx];
-        int ways=0;
-        if(s[idx]!='0') ways+=solve(idx+1,s,n);
-        if(idx+1<n && ((s[idx]=='1' && s[idx+1]<='9')||(s[idx]=='2' && s[idx+1]<='6'))) ways+=solve(idx+2,s,n);
-        return dp[idx]=ways;
+        if(idx>=s.length()) return 1;
+        if(dp[idx]!=0) return dp[idx];
+        if(idx<s.length() && s[idx]=='0') return 0;
+        int ans=0;
+        if(s[idx]>='1' && s[idx]<='9') ans+=solve(s,idx+1,dp);
+        if(idx+1<s.length())
+        {
+            if((s[idx]=='1' && (s[idx+1]>='0' && s[idx+1]<='9') )||(s[idx]=='2' && (s[idx+1]>=0 && s[idx+1]<='6'))) ans+=solve(s,idx+2,dp);
+        }
+        return dp[idx]=ans;
     }
     int numDecodings(string s) {
-        memset(dp,-1,sizeof(dp));
-        return solve(0,s,s.length());
+        vector<int>dp(101,0);
+        return solve(s,0,dp);
     }
 };
