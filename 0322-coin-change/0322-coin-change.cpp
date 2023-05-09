@@ -12,6 +12,6 @@ public:
     int coinChange(vector<int>& coins, int amount) {
         vector<vector<int>>dp(coins.size()+1,vector<int>(amount+1,-1));
         int ans=solve(coins,0,amount,dp);
-        return ans==INT_MAX-1?-1:ans;
+        return ans>=INT_MAX-1?-1:ans;
     }
 };
