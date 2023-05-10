@@ -3,18 +3,19 @@ public:
     int lengthOfLongestSubstring(string s) {
         int i=0,j=0,ans=0;
         unordered_set<char>set;
-        while(j<s.size())
+        while(j<s.length())
         {
             if(set.find(s[j])==set.end())
             {
-                set.insert(s[j]);
-                ans=max(ans,j-i+1);
-                j++;
+                set.insert(s[j++]);
+                ans=max(ans,j-i);
             }
-            else
+            else 
             {
-                set.erase(s[i]);
-                i++;
+                while(set.find(s[j])!=set.end())
+                {
+                    set.erase(s[i++]);
+                }
             }
         }
         return ans;
