@@ -1,7 +1,7 @@
 class Solution {
 public:
     int calculate(string s) {
-       stack<pair<int,int>>st;
+        stack<pair<int,int>>st;
        long long int sum=0;
        int sign=+1;
        for(int i=0;i<s.size();++i)
