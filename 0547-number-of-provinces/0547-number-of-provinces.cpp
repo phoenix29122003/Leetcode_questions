@@ -1,16 +1,16 @@
 class Solution {
 public:
-    void dfs(vector<vector<int>>& graph,vector<bool>&vis,int i)
+    void solve(vector<vector<int>>& graph,vector<bool>&vis,int src)
     {
-        vis[i]=true;
-        for(int j=0;j<graph.size();j++) if(graph[i][j] && !vis[j]) dfs(graph,vis,j);
+        vis[src]=true;
+        for(int j=0;j<graph.size();j++) if(graph[src][j] && !vis[j]) solve(graph,vis,j);
     }
     int findCircleNum(vector<vector<int>>& graph) {
-        int n=graph.size(),ans=0;
+        int ans=0,n=graph.size();
         vector<bool>vis(n,false);
         for(int i=0;i<n;i++)
         {
-            if(!vis[i]) ans++,dfs(graph,vis,i);
+            if(!vis[i]) ans++,solve(graph,vis,i);
         }
         return ans;
     }
