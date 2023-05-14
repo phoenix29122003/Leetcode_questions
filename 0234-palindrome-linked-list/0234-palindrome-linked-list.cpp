@@ -1,3 +1,13 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
@@ -12,20 +22,20 @@ public:
         return prev;
     }
     bool isPalindrome(ListNode* head) {
-        vector<int>num1,num2;
-        ListNode *dum1=head;
-        while(dum1)
+        string s="";
+        ListNode *dum=head;
+        while(dum)
         {
-            num1.push_back(dum1->val);
-            dum1=dum1->next;
+            s+=dum->val;
+            dum=dum->next;
         }
-        ListNode *dum2=reverseList(head);
-        while(dum2)
+        dum=reverseList(head);
+        string p="";
+        while(dum)
         {
-            num2.push_back(dum2->val);
-            dum2=dum2->next;
+            p+=dum->val;
+            dum=dum->next;
         }
-        if(num1==num2) return true;
-        else return false;
+        return s==p;
     }
 };
