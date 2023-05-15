@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void solve(TreeNode* root,vector<int>&ans)
+    void solve(TreeNode *root,vector<int>&ans)
     {
         if(!root) return;
         solve(root->left,ans);
