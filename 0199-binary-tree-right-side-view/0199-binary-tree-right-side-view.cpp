@@ -2,10 +2,10 @@ class Solution {
 public:
     vector<int> rightSideView(TreeNode* root) {
         vector<int>ans;
+        if(root==NULL) return ans;
         queue<TreeNode*>q;
-        if(!root) return ans;
         q.push(root);
-        while(!q.empty()) 
+        while(!q.empty())
         {
             int sz=q.size();
             for(int i=0;i<sz;i++)
