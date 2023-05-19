@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void solve(vector<int>&nums,int target,int idx,vector<int>&ds,vector<vector<int>>&ans)
+    void solve(vector<int>nums,int idx,int target,vector<int>&ds,vector<vector<int>>&ans)
     {
         if(target==0)
         {
@@ -12,7 +12,7 @@ public:
             if(nums[i]>target) return;
             if(i && nums[i]==nums[i-1] && i!=idx) continue;
             ds.push_back(nums[i]);
-            solve(nums,target-nums[i],i+1,ds,ans);
+            solve(nums,i+1,target-nums[i],ds,ans);
             ds.pop_back();
         }
     }
@@ -20,7 +20,7 @@ public:
         vector<vector<int>>ans;
         vector<int>ds;
         sort(nums.begin(),nums.end());
-        solve(nums,target,0,ds,ans);
+        solve(nums,0,target,ds,ans);
         return ans;
     }
 };
