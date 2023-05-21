@@ -1,14 +1,12 @@
 class Solution {
 public:
-    bool pal(string str,int i,int j)
+    bool ispal(string s)
     {
-        while(i<=j)
-        {
-            if(str[i++]!=str[j--]) return false;
-        }
-        return true;
+        string t=s;
+        reverse(t.begin(),t.end());
+        return t==s;
     }
-    void solve(int idx,string s,vector<vector<string>>&ans,vector<string>&ds)
+    void solve(string s,int idx,vector<string>&ds,vector<vector<string>>&ans)
     {
         if(idx==s.length())
         {
@@ -17,18 +15,18 @@ public:
         }
         for(int i=idx;i<s.length();i++)
         {
-            if(pal(s,idx,i)) 
+            if(ispal(s.substr(idx,i-idx+1)))
             {
                 ds.push_back(s.substr(idx,i-idx+1));
-                solve(i+1,s,ans,ds);
+                solve(s,i+1,ds,ans);
                 ds.pop_back();
             }
         }
-    } 
+    }
     vector<vector<string>> partition(string s) {
         vector<vector<string>>ans;
         vector<string>ds;
-        solve(0,s,ans,ds);
+        solve(s,0,ds,ans);
         return ans;
     }
 };
