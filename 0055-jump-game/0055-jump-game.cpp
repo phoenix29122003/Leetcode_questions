@@ -5,14 +5,14 @@ public:
         if(pos==nums.size()-1) return true;
         else if(pos>=nums.size()) return false;
         else if(dp[pos]!=-1) return dp[pos];
-        int ans=false;
         for(int i=1;i<=nums[pos];i++)
         {
             if(solve(nums,dp,pos+i)) return dp[pos]=true;
         }
         return dp[pos]=false;
     }
-    bool canJump(vector<int>& nums) {
+    bool canJump(vector<int>& nums) 
+    {
         vector<int>dp(nums.size(),-1);
         return solve(nums,dp,0);
     }
