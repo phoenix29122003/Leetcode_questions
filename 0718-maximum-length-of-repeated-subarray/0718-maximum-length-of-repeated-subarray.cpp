@@ -7,7 +7,7 @@ public:
         if(dp[i][j]!=-1) return dp[i][j];
         solve(nums1,nums2,i+1,j,m,n,dp),solve(nums1,nums2,i,j+1,m,n,dp);
         if(nums1[i]==nums2[j]) dp[i][j]=1+solve(nums1,nums2,i+1,j+1,m,n,dp);
-        else dp[i][j]=0;
+        else dp[i][j]=0; 
         ans=max(ans,dp[i][j]);
         return dp[i][j];
     }
