@@ -1,13 +1,21 @@
 class Solution {
 public:
+    int dp[20001];
+    int solve(vector<int>nums,int idx)
+    {
+        if(idx>=nums.size()) return 0;
+        if(dp[idx]!=-1) return dp[idx];
+        int curr=nums[idx];
+        int sum=nums[idx];
+        int i=idx+1;
+        while(i<nums.size() && nums[i]==curr) sum+=nums[i++];
+        int j=i;
+        while(j<nums.size() && nums[j]==curr+1) j++;
+        return dp[idx]=max(sum+solve(nums,j),solve(nums,i));
+    }
     int deleteAndEarn(vector<int>& nums) {
-        int n = 10001;
-        vector<int> sum(n, 0);
-        vector<int> dp(n, 0);
-        for(auto num: nums) sum[num]+=num;
-        dp[0]=0;
-        dp[1]=sum[1];
-        for(int i=2;i<n;i++) dp[i] = max(dp[i-2] + sum[i], dp[i-1]);
-        return dp[n-1];
+        memset(dp,-1,sizeof(dp));
+        sort(nums.begin(),nums.end());
+        return solve(nums,0);
     }
 };
