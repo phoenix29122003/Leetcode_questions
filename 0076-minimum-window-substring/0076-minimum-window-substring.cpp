@@ -16,6 +16,6 @@ public:
             }
         }
         if(min_len==INT_MAX) return "";
-        return s.substr(min_start, min_len);
+        return s.substr(min_start,min_len);
     }
 };
