@@ -8,7 +8,6 @@ public:
             else if(nums[j]%2==1) j--;
             else swap(nums[i++],nums[j--]);
         }
-        vector<int>ans=nums;
-        return ans;
+        return nums;
     }
 };
