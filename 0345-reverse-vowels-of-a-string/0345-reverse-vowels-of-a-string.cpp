@@ -2,17 +2,16 @@ class Solution {
 public:
     bool check(char c)
     {
-        return c=='a' || c=='e' || c=='i' || c=='o' || c=='u' || 
-            c=='A' || c=='E' || c=='I' || c=='O' || c=='U';
+        return (c=='a'||c=='A'||c=='e'||c=='E'||c=='i'||c=='I'||c=='o'||c=='O'||c=='u'||c=='U');
     }
     string reverseVowels(string s) {
-        int i=0,j=s.length()-1;
-        while(i<j)
+        int l=0,h=s.length()-1;
+        while(l<h)
         {
-            while(i<j && !check(s[i])) i++;
-            while(i<j && !check(s[j])) j--;
-            if(i<j) swap(s[i++],s[j--]);
+            if(!check(s[l])) l++;
+            else if(!check(s[h])) h--;
+            else swap(s[l++],s[h--]);
         }
         return s;
     }
-};   
+};
