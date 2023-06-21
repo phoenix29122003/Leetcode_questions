@@ -7,18 +7,12 @@ public:
         {
             if(it=='(')
             {
-                if(st.size()>0) 
-                {
-                    ans+=it;
-                }
+                if(st.size()>0) ans+=it;
                 st.push(it);
             }
             else 
             {
-                if(st.size()>1)
-                {
-                    ans+=it;
-                }
+                if(st.size()>1) ans+=it;
                 st.pop();
             }
         }
