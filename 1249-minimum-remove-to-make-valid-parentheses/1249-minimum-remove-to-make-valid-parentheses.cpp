@@ -5,18 +5,18 @@ public:
         for(int i=0;i<s.length();i++)
         {
             if(s[i]=='(') st.push(i);
-            else if(s[i]==')') 
+            else if(s[i]==')')
             {
-                if(st.empty()) s[i]='*';
-                else st.pop();
+                if(st.size()) st.pop();
+                else s[i]='*';
             }
         }
-        while(!st.empty())
+        while(st.size())
         {
             s[st.top()]='*';
             st.pop();
         }
-        s.erase(remove(s.begin(), s.end(), '*'), s.end());
+        s.erase(remove(s.begin(),s.end(),'*'),s.end());
         return s;
     }
 };
