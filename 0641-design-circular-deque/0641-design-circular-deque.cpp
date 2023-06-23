@@ -1,10 +1,10 @@
 class MyCircularDeque {
-vector<int> buffer;
+public:
+    vector<int> buffer;
     int cnt;
     int k;
     int front;
     int rear;
-public:
     MyCircularDeque(int k): buffer(k, 0), cnt(0), k(k), front(k - 1), rear(0) {
     }
     bool insertFront(int value) {
@@ -18,14 +18,14 @@ public:
     bool insertLast(int value) {
         if(cnt==k) return false;
         buffer[rear]=value;
-        rear=(rear+1)%k;
+        rear=(rear+1+k)%k;
         cnt++;
         return true;
     }
     
     bool deleteFront() {
         if(cnt==0) return false;
-        front=(front+1)%k;
+        front=(front+1+k)%k;
         cnt--;
         return true;
     }
