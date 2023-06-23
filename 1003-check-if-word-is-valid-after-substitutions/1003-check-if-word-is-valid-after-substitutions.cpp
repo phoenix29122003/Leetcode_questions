@@ -2,16 +2,16 @@ class Solution {
 public:
     bool isValid(string s) {
         vector<char>st;
-        for(auto c:s)
+        for(int i=0;i<s.length();i++)
         {
-            if(c=='c')
+            if(s[i]=='c')
             {
                 int n=st.size();
-                if(st.size()<2 || st[n-1]!='b' || st[n-2]!='a') return false;
+                if(n<2 || st[n-1]!='b' || st[n-2]!='a') return false;
                 st.pop_back(),st.pop_back();
             }
-            else st.push_back(c);
+            else st.push_back(s[i]);
         }
-        return st.size()==0;
+        return st.empty();
     }
 };
