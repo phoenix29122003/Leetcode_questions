@@ -13,9 +13,9 @@ public:
                while(i<s.size() and isdigit(s[i]))
                {
                    num=(num*10)+s[i]-'0';
-                   i++;
+                   i++; 
                }
-               i--; 
+               i--;                                                                                     
                sum+=(num*sign);
                sign=+1;
            }
