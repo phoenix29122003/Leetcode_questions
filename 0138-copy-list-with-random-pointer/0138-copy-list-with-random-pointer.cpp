@@ -1,7 +1,7 @@
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
-        map<Node*,Node*>mp;
+        unordered_map<Node*,Node*>mp;
         Node *ptr=head;
         while(ptr)
         {
