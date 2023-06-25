@@ -5,6 +5,6 @@ public:
         if(original==target) return cloned;
         TreeNode *left=getTargetCopy(original->left,cloned->left,target);
         if(left) return left;
-        else return getTargetCopy(original->right,cloned->right,target);
+        return getTargetCopy(original->right,cloned->right,target);
     }
 };
