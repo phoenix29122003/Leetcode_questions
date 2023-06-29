@@ -3,7 +3,7 @@ public:
     int ans=0;
     unordered_map<long,int>mp;
     void solve(TreeNode *root,int target,long sum)
-    {
+    { 
         if(root==NULL) return;
         sum+=root->val;
         if(sum==target) ans++;
