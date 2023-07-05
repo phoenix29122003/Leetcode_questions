@@ -5,7 +5,7 @@ public:
         if(root==NULL) return ans;
         queue<TreeNode*>q;
         q.push(root);
-        while(!q.empty())
+        while(q.size())
         {
             int sz=q.size();
             for(int i=0;i<sz;i++)
