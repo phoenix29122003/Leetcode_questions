@@ -1,21 +1,21 @@
 class Solution {
 public:
-    int dfs(TreeNode* root,int &n)
+    int solve(TreeNode *root,int &ans)
     {
-        if(!root) return 1;
-        int l=dfs(root->left,n);
-        int r=dfs(root->right,n);
-        if(l==0 || r==0)
+        if(root==NULL) return 1;
+        int l=solve(root->left,ans);
+        int r=solve(root->right,ans);
+        if(l==0 || r==0) 
         {
-            n++;
+            ans++;
             return 2;
-        } 
-        else if(l==2 || r==2) return 1;
+        }
+        if(l==2 || r==2) return 1;
         else return 0;
     }
     int minCameraCover(TreeNode* root) {
-        int n=0;
-        if(dfs(root,n)==0) n++;
-        return n;
+        int ans=0;
+        if(solve(root,ans)==0) ans++;
+        return ans;
     }
 };
