@@ -11,8 +11,7 @@ public:
         ans=(ans+solve(m,n,N-1,x-1,y))%mod;
         ans=(ans+solve(m,n,N-1,x+1,y))%mod;
         ans=(ans+solve(m,n,N-1,x,y+1))%mod;
-        dp[N][x][y]=ans;
-        return dp[N][x][y]%mod;
+        return dp[N][x][y]=ans%mod;
     }
     int findPaths(int m, int n, int N, int i, int j) {
         memset(dp,-1,sizeof(dp));
