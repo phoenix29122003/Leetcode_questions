@@ -1,36 +1,29 @@
 class Solution {
 public:
-    vector<int> spiralOrder(vector<vector<int>>& matrix) {
-        int n=matrix.size();
-        int m=matrix[0].size();
-        int dirxn=1;
-        int top=0,bottom=n-1,left=0,right=m-1;
+    vector<int> spiralOrder(vector<vector<int>>& grid) {
         vector<int>ans;
-        while(left<=right && top<=bottom)
+        int row1=0,row2=grid.size()-1,col1=0,col2=grid[0].size()-1,dirxn=1;
+        while(row1<=row2 && col1<=col2)
         {
             if(dirxn==1)
             {
-                for(int i=left;i<=right;i++) ans.push_back(matrix[top][i]);
-                top++;
-                dirxn=2;
+                for(int i=col1;i<=col2;i++) ans.push_back(grid[row1][i]);
+                row1++,dirxn=2;
             }
             else if(dirxn==2)
             {
-                for(int i=top;i<=bottom;i++) ans.push_back(matrix[i][right]);
-                right--;
-                dirxn=3;
+                for(int i=row1;i<=row2;i++) ans.push_back(grid[i][col2]);
+                col2--,dirxn=3;
             }
             else if(dirxn==3)
             {
-                for(int i=right;i>=left;i--) ans.push_back(matrix[bottom][i]);
-                bottom--;
-                dirxn=4;
+                for(int i=col2;i>=col1;i--) ans.push_back(grid[row2][i]);
+                row2--,dirxn=4;
             }
             else
             {
-                for(int i=bottom;i>=top;i--) ans.push_back(matrix[i][left]);
-                left++;
-                dirxn=1;
+                for(int i=row2;i>=row1;i--) ans.push_back(grid[i][col1]);
+                col1++,dirxn=1;
             }
         }
         return ans;
