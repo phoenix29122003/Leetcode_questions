@@ -10,7 +10,7 @@ public:
             while(l<r)
             {
                 if(abs(nums[l]+nums[r]-x)==0) return nums[i]+nums[l]+nums[r];
-                else if(abs(nums[l]+nums[r]-x)<diff)
+                else if(abs(nums[l]+nums[r]-x)<diff) 
                 {
                     diff=abs(nums[l]+nums[r]-x);
                     ans=nums[i]+nums[l]+nums[r];
