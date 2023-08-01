@@ -1,10 +1,9 @@
 class Solution {
 public:
-    int subarraysDivByK(vector<int>& nums, int k) {
+    int subarraysDivByK(vector<int>& nums, int k) {       
         unordered_map<int,int>mp;
         int ans=0,curr=0;
-        for(int i=0;i<nums.size();i++)
-        {
+        for(int i=0;i<nums.size();i++){
             curr+=nums[i];
             int rem=curr%k;
             if(rem<0) rem+=k;
