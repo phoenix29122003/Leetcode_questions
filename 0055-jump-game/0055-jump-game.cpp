@@ -1,19 +1,22 @@
 class Solution {
 public:
-    int solve(vector<int>& nums,vector<int>&dp,int pos)
-    {
-        if(pos==nums.size()-1) return true;
-        else if(pos>=nums.size()) return false;
-        else if(dp[pos]!=-1) return dp[pos];
-        for(int i=1;i<=nums[pos];i++)
-        {
-            if(solve(nums,dp,pos+i)) return dp[pos]=true;
+    int dp[10001];
+    bool solve(vector<int>&nums,int idx,int n){
+        if(idx==n-1) return true;
+        else if(idx>=n) return false;
+        if(nums[idx]==0) return false;
+        if(dp[idx]!=-1) return dp[idx];
+        int ans=false;
+        for(int i=1;i<=nums[idx];i++){
+            if(solve(nums,idx+i,n)) {
+                ans=true;
+                break;
+            }
         }
-        return dp[pos]=false;
+        return dp[idx]=ans;
     }
-    bool canJump(vector<int>& nums) 
-    {
-        vector<int>dp(nums.size(),-1);
-        return solve(nums,dp,0);
+    bool canJump(vector<int>& nums) {
+        memset(dp,-1,sizeof(dp));
+        return solve(nums,0,nums.size());
     }
 };
