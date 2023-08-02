@@ -1,24 +1,22 @@
 class Solution {
 public:
-    void solve(int idx,int k,int n,vector<int>&ds,vector<vector<int>>&ans)
-    {
-        if(n<0 || ds.size()>k) return;
-        if(ds.size()==k && n==0)
-        {
-            ans.push_back(ds);
+    void solve(vector<int>nums,int idx,int k,int target,vector<int>&ds,vector<vector<int>>&ans){
+        if(ds.size()==k) {
+            if(target==0) ans.push_back(ds);
             return;
         }
-        for(int i=idx;i<=9;i++)
-        {
-            ds.push_back(i);
-            solve(i+1,k,n-i,ds,ans);
+        for(int i=idx;i<nums.size();i++){
+            ds.push_back(nums[i]);
+            solve(nums,i+1,k,target-nums[i],ds,ans);
             ds.pop_back();
         }
     }
-    vector<vector<int>> combinationSum3(int k, int n) {
-        vector<vector<int>>ans;
+    vector<vector<int>> combinationSum3(int k, int target) {
+        vector<int>nums;
+        for(int i=1;i<=9;i++) nums.push_back(i);
         vector<int>ds;
-        solve(1,k,n,ds,ans);
+        vector<vector<int>>ans;
+        solve(nums,0,k,target,ds,ans);
         return ans;
     }
 };
