@@ -13,9 +13,9 @@ class Solution{
 	        else return 0;
 	    }
 	    if(dp[i][sum]!=-1) return dp[i][sum];
-	    int ans=solve(arr,i-1,sum,dp);
-	    ans+=solve(arr,i-1,sum-arr[i],dp);
-	    return dp[i][sum]=(ans)%M;
+	    int notpick=solve(arr,i-1,sum,dp);
+	    int pick=solve(arr,i-1,sum-arr[i],dp);
+	    return dp[i][sum]=(pick+notpick)%M;
 	}
 	int perfectSum(int arr[], int n, int sum)
 	{
