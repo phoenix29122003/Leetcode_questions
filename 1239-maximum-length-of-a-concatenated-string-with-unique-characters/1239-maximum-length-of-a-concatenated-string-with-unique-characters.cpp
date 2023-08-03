@@ -8,9 +8,7 @@ public:
     void solve(vector<string>arr,int idx,string ds,int &ans){
         if(!isunique(ds)) return;
         if(ans<ds.length()) ans=ds.length();
-        for(int i=idx;i<arr.size();i++){
-            solve(arr,i+1,ds+arr[i],ans);
-        }
+        for(int i=idx;i<arr.size();i++) solve(arr,i+1,ds+arr[i],ans);
     }
     int maxLength(vector<string>& arr) {
         int ans=0;
