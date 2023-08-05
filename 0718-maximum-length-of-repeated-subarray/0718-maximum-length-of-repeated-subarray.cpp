@@ -1,8 +1,7 @@
 class Solution {
 public:
     int ans=0;
-    int solve(vector<int>& nums1,vector<int>& nums2,int i,int j,int m,int n,vector<vector<int>>&dp)
-    {
+    int solve(vector<int>& nums1,vector<int>& nums2,int i,int j,int m,int n,vector<vector<int>>&dp){
         if(i>=m || j>=n) return 0;
         if(dp[i][j]!=-1) return dp[i][j];
         solve(nums1,nums2,i+1,j,m,n,dp),solve(nums1,nums2,i,j+1,m,n,dp);
