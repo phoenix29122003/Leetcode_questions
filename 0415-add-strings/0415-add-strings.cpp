@@ -1,18 +1,15 @@
 class Solution {
 public:
-    string addStrings(string num1, string num2) {
-        int i=num1.size()-1,j=num2.size()-1;
+    string addStrings(string s, string t) {
+        int i=s.length()-1,j=t.length()-1;
+        int carry=0;
         string ans="";
-        int carry=0,sum=0;
-        while(i>=0 || j>=0 || carry)
-        {
-            sum=0;
-            if(i>=0) sum+=num1[i--]-'0';
-            if(j>=0) sum+=num2[j--]-'0';
-            sum+=carry;
+        while(i>=0 || j>=0 || carry){
+            int x=i>=0?s[i--]-'0':0;
+            int y=j>=0?t[j--]-'0':0;
+            int sum=x+y+carry;
             carry=sum/10;
-            sum%=10;
-            ans+=to_string(sum);
+            ans+=sum%10+'0';
         }
         reverse(ans.begin(),ans.end());
         return ans;
