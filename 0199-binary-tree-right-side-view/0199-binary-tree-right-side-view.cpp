@@ -5,12 +5,10 @@ public:
         if(root==NULL) return ans;
         queue<TreeNode*>q;
         q.push(root);
-        while(q.size())
-        {
-            int sz=q.size();
-            for(int i=0;i<sz;i++)
-            {
-                TreeNode *curr=q.front();
+        while(q.size()){
+            int n=q.size();
+            for(int i=0;i<n;i++){
+                auto curr=q.front();
                 q.pop();
                 if(i==0) ans.push_back(curr->val);
                 if(curr->right) q.push(curr->right);
