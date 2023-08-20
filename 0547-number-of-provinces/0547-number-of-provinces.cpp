@@ -1,14 +1,29 @@
 class Solution {
 public:
-    void solve(vector<vector<int>>& graph,vector<int>&vis,int src)
-    {
-        vis[src]=true;
-        for(int j=0;j<graph.size();j++) if(!vis[j] && graph[src][j]==1) solve(graph,vis,j);
+    void dfs(map<int,vector<int>>mp,int sr,vector<bool>&vis){
+        vis[sr]=true;
+        for(auto it:mp[sr]){
+            if(vis[it]==false) dfs(mp,it,vis);
+        }
     }
     int findCircleNum(vector<vector<int>>& graph) {
         int n=graph.size(),ans=0;
-        vector<int>vis(n,false);
-        for(int i=0;i<n;i++) if(!vis[i]) ans++,solve(graph,vis,i);
+        map<int,vector<int>>mp;
+        for(int i=0;i<n;i++)
+            for(int j=0;j<n;j++)
+                if(graph[i][j]==1) mp[i].push_back(j);
+        for(auto it:mp){
+            cout<<it.first<<" ";
+            for(auto it2:it.second) cout<<it2<<" ";
+            cout<<endl;
+        }
+        vector<bool>vis(n,false);
+        for(auto it:mp){
+            if(vis[it.first]==false){
+                ans++;
+                dfs(mp,it.first,vis);
+            }
+        }
         return ans;
     }
 };
