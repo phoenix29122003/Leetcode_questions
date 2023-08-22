@@ -1,26 +1,32 @@
 class Solution {
 public:
-    string reorganizeString(string S) {
-        vector<int> cnt(26);
-        int mostFreq=0,i=0;
-        for(char c:S) if(++cnt[c-'a']>cnt[mostFreq]) mostFreq=(c-'a');
-        if(2*cnt[mostFreq]-1>S.size()) return "";
-        while(cnt[mostFreq]) 
-        {
-            S[i]=('a'+mostFreq);
-            i+=2;
-            cnt[mostFreq]--;
-        }
-        for(int j=0;j<26;j++) 
-        {
-            while(cnt[j])
-            {
-                if(i>=S.size()) i=1;
-                S[i]=('a'+j);
-                cnt[j]--;
+    string reorganizeString(string s) {
+        int n=s.length();
+        unordered_map<char,int>mp;
+        for(auto it:s) mp[it]++;
+        int maxfreq=0;
+        for(auto it:mp) maxfreq=max(maxfreq,it.second);
+        if(maxfreq>(n+1)/2) return "";
+        priority_queue<pair<int,char>>pq;
+        for(auto it:mp) pq.push({it.second,it.first});
+        int i=0;
+        vector<char>ans(n);
+        while(pq.size()){
+            auto x=pq.top();
+            pq.pop();
+            char ch=x.second;
+            int freq=x.first;
+            while(freq--){
+                if(i==n || i>n) i=1;
+                ans[i]=ch;
                 i+=2;
             }
         }
-        return S;
+        string res="";
+        int j=0;
+        while(j<n){
+            res+=ans[j++];
+        }
+        return res;
     }
 };
