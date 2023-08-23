@@ -1,20 +1,19 @@
 class MyHashMap {
 public:
-    int data[1000001];
+    int map[1000001];
     MyHashMap() {
-        fill(data,data+1000000,-1);
+        memset(map,-1,sizeof(map));
     }
-    
     void put(int key, int value) {
-        data[key]=value;
+        map[key]=value;
     }
     
     int get(int key) {
-        return data[key];
+        return map[key];
     }
     
     void remove(int key) {
-        data[key]=-1;
+        map[key]=-1;
     }
 };
 
