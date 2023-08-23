@@ -1,17 +1,18 @@
 class MyHashSet {
 public:
-    vector<bool> table;
-    MyHashSet() : table(1e6 + 1, false) {}
-    
+    bool set[1000001];
+    MyHashSet() {
+        memset(set,false,sizeof(set));
+    }
     void add(int key) {
-        table[key]=true;
+        set[key]=true;
     }
     
     void remove(int key) {
-        table[key]=false;
+        set[key]=false;
     }
     
     bool contains(int key) {
-        return table[key];
+        return set[key];
     }
 };
