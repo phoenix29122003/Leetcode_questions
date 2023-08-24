@@ -1,24 +1,20 @@
 class Solution {
 public:
-    bool solve(vector<int>&nums,int m,int d)
-    {
-        int cnt=1,curr_sum=0;
-        for(auto it:nums)
-        {
-            if(curr_sum+it<=m) curr_sum+=it;
-            else curr_sum=it,cnt++;
+    bool check(vector<int>&nums,int limit,int n){
+        int cnt=1,curr=0;
+        for(auto it:nums){
+            curr+=it;
+            if(curr>limit) cnt++,curr=it;
         }
-        return cnt<=d;
+        return cnt<=n;
     }
     int shipWithinDays(vector<int>& nums, int d) {
-        int l=*max_element(nums.begin(),nums.end());
-        int r=accumulate(nums.begin(),nums.end(),0);
-        int ans=INT_MAX;
-        while(l<=r)
-        {
-            int m=(l+r)/2;
-            if(solve(nums,m,d)) ans=m,r=m-1;
-            else l=m+1;
+        int lo=INT_MIN,hi=0,ans;
+        for(auto it:nums) lo=max(lo,it),hi+=it;
+        while(lo<=hi){
+            int mi=(lo+hi)/2;
+            if(check(nums,mi,d)) ans=mi,hi=mi-1;
+            else lo=mi+1;
         }
         return ans;
     }
