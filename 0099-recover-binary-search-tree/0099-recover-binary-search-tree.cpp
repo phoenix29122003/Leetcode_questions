@@ -1,18 +1,20 @@
 class Solution {
 public:
-    vector<pair<TreeNode*,TreeNode*>>vec;
-    TreeNode *prev=NULL;
-    void solve(TreeNode* root)
-    {
-        if(!root) return;
+    TreeNode *first=NULL,*second=NULL,*prev=NULL;
+    void solve(TreeNode *root){
+        if(root==NULL) return;
         solve(root->left);
-        if(prev && prev->val>root->val) vec.push_back({prev,root});
+        if(prev && prev->val>root->val){
+            if(first==NULL) first=prev;
+            second=root;
+        }
         prev=root;
         solve(root->right);
     }
     void recoverTree(TreeNode* root) {
         solve(root);
-        if(vec.size()==2) swap(vec[0].first->val,vec[1].second->val);
-        if(vec.size()==1) swap(vec[0].first->val,vec[0].second->val);
+        int dum=first->val;
+        first->val=second->val;
+        second->val=dum;
     }
 };
