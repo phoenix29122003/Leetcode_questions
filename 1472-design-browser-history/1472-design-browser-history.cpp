@@ -8,21 +8,19 @@ public:
     }
     void visit(string url) {
         history.push(url);
-        future = stack<string>();        
+        future=stack<string>();        
     }
     string back(int steps) {
-        while(steps > 0 && history.size() > 1) { 
+        while(steps-- >0 && history.size()>1){ 
             future.push(history.top());
             history.pop();
-            steps--;
         }
         return history.top();
     }
     string forward(int steps) {
-        while(steps > 0 && future.size() > 0) {
+        while(steps-- >0 && future.size()>0){
             history.push(future.top());
             future.pop();
-            steps--;
         }
         return history.top();
     }
