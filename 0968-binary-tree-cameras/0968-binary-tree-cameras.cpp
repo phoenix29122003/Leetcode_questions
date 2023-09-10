@@ -1,7 +1,6 @@
 class Solution {
 public:
-    int solve(TreeNode *root,int &ans)
-    {
+    int solve(TreeNode *root,int &ans){
         if(root==NULL) return 1;
         int l=solve(root->left,ans);
         int r=solve(root->right,ans);
