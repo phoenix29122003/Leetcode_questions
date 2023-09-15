@@ -1,20 +1,17 @@
 class Solution {
 public:
     bool checkInclusion(string s1, string s2) {
-        int cnt1[26]={0};
-        for(int i=0;i<s1.length();i++) cnt1[s1[i]-'a']++;
-        for(int i=0;i<s2.length();i++)
-        {
-            bool flag=true;
-            string str=s2.substr(i,s1.length());
-            int cnt2[26]={0};
-            for(int j=0;j<str.length();j++) cnt2[str[j]-'a']++;
-            for(int k=0;k<26;k++) if(cnt1[k]!=cnt2[k]) 
-            {
-                flag=false;
-                break;
-            }
-            if(flag==true) return true;
+        if(s1.length()>s2.length()) return false;
+        vector<int>check(26,0);
+        for(int i=0;i<s1.length();i++) check[s1[i]-'a']++;
+        int n=s1.length();
+        vector<int>vec(26,0);
+        for(int i=0;i<n;i++) vec[s2[i]-'a']++;
+        if(vec==check) return true;
+        for(int i=n;i<s2.length();i++){
+            vec[s2[i]-'a']++;
+            vec[s2[i-n]-'a']--;
+            if(vec==check) return true;
         }
         return false;
     }
