@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int dp[21][4000];
+    int dp[21][3000];
     int solve(vector<int>nums,int idx,int target){
         if(idx==nums.size()) return target==0;
         if(dp[idx][target+1000]!=-1) return dp[idx][target+1000];
