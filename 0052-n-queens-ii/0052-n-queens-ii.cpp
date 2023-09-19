@@ -1,34 +1,31 @@
 class Solution {
 public:
-    bool issafe(vector<string>&board,int c,int r,int n){
+    bool issafe(vector<vector<int>>&board,int r,int c,int n){
         int i=r,j=c;
-        while(i>=0 && j>=0) if(board[i--][j--]=='Q') return false;
+        while(i>=0 && j>=0) if(board[i--][j--]==1) return false; 
         i=r,j=c;
-        while(j>=0) if(board[i][j--]=='Q') return false;
+        while(j>=0) if(board[i][j--]==1) return false; 
         i=r,j=c;
-        while(i<n && j>=0) if(board[i++][j--]=='Q') return false;
+        while(i<n && j>=0) if(board[i++][j--]==1) return false; 
         return true;
     }
-    void solve(int c,vector<string>&board,vector<vector<string>>&ans,int n)
-    {
+    void solve(vector<vector<int>>&board,int c,int n,int &ans){
         if(c==n){
-            ans.push_back(board);
+            ans++;
             return;
         }
-        for(int i=0;i<n;i++){
-            if(issafe(board,c,i,n)){
-                board[i][c]='Q';
-                solve(c+1,board,ans,n);
-                board[i][c]='.';
+        for(int r=0;r<n;r++){
+            if(issafe(board,r,c,n)){
+                board[r][c]=1;
+                solve(board,c+1,n,ans);
+                board[r][c]=0;
             }
         }
     }
     int totalNQueens(int n) {
-        vector<vector<string>>ans;
-        vector<string>board(n);
-        string s(n,'.');
-        for(int i=0;i<n;i++) board[i]=s;
-        solve(0,board,ans,n);
-        return ans.size();
+        int ans=0;
+        vector<vector<int>>board(n,vector<int>(n,0));
+        solve(board,0,n,ans);
+        return ans;
     }
 };
