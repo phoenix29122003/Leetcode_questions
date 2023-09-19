@@ -7,20 +7,20 @@ using namespace std;
 class Solution
 {
     public:
-    //Function to return max value that can be put in knapsack of capacity W.
     int dp[1001][1001];
-    int solve(int val[],int wt[],int idx,int n,int W){
+    int solve(int wt[],int val[],int idx,int n,int W){
         if(idx==n || W==0) return 0;
         if(dp[idx][W]!=-1) return dp[idx][W];
         int ans;
-        if(wt[idx]<=W) ans=max(val[idx]+solve(val,wt,idx+1,n,W-wt[idx]),solve(val,wt,idx+1,n,W));
-        else ans=solve(val,wt,idx+1,n,W);
+        if(wt[idx]<=W){
+            ans=max(val[idx]+solve(wt,val,idx+1,n,W-wt[idx]),solve(wt,val,idx+1,n,W));
+        }
+        else ans=solve(wt,val,idx+1,n,W);
         return dp[idx][W]=ans;
     }
     int knapSack(int W, int wt[], int val[], int n) { 
-       // Your code here
        memset(dp,-1,sizeof(dp));
-       return solve(val,wt,0,n,W);
+       return solve(wt,val,0,n,W);
     }
 };
 
