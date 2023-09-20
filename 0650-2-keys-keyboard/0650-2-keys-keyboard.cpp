@@ -1,12 +1,12 @@
 class Solution {
 public:
-    int solve(int printed,int n,int copied)
-    {
-        if(printed>n) return INT_MAX/2;
-        else if(printed==n) return 0;
-        return min(2+solve(2*printed,n,printed),1+solve(printed+copied,n,copied));
+    int solve(int n,int copied,int curr){
+        if(curr>n) return 1000000;
+        if(curr==n) return 0;
+        return min(2+solve(n,curr,2*curr),1+solve(n,copied,curr+copied));
     }
     int minSteps(int n) {
-        return n>1?1+solve(1,n,1):0;
+        if(n==1) return 0;
+        return 1+solve(n,1,1);
     }
 };
