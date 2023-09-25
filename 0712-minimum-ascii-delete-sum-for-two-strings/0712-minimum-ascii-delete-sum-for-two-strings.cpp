@@ -1,24 +1,16 @@
 class Solution {
 public:
-    vector<vector<int>> memo;
-    int dp(string &s1,string &s2,int i,int j)
-    {
-        int cost=0;
-        if (memo[i][j]!=-1) return memo[i][j];
-        if (i==s1.size() && j==s2.size()) cost=0; 
-        else if(i==s1.size()) cost+=dp(s1,s2,i,j+1)+s2[j];
-        else if(j==s2.size()) cost+=dp(s1,s2,i+1,j)+s1[i];
-        else if(s1[i]==s2[j]) cost+=dp(s1,s2,i+1,j+1);
-        else{
-            long a=dp(s1,s2,i+1,j)+s1[i];
-            long b=dp(s1,s2,i,j+1)+s2[j];
-            cost+=min(a, b);
-        }
-        return memo[i][j] = cost;
+    int dp[1001][1001];
+    int solve(string &s,string &t,int i,int j,int m,int n){
+        if(dp[i][j]!=-1) return dp[i][j];
+        if(i>=m && j>=n) return 0;
+        if(j>=n) return dp[i][j]=s[i]+solve(s,t,i+1,j,m,n);
+        if(i>=m) return dp[i][j]=t[j]+solve(s,t,i,j+1,m,n);
+        if(s[i]==t[j]) return dp[i][j]=solve(s,t,i+1,j+1,m,n);
+        else return dp[i][j]=min(s[i]+solve(s,t,i+1,j,m,n),t[j]+solve(s,t,i,j+1,m,n));
     }
-    
-    int minimumDeleteSum(string s1, string s2) {
-        memo.resize(s1.size()+1, vector<int>(s2.size()+1, -1));
-        return dp(s1, s2, 0, 0);       
+    int minimumDeleteSum(string s, string t) {
+        memset(dp,-1,sizeof(dp));
+        return solve(s,t,0,0,s.length(),t.length());
     }
 };
