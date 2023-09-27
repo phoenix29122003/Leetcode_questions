@@ -14,7 +14,6 @@ class Solution
     {
        int ans=0,cnt=0;
        for(int i=0;i<n-1;i++){
-           ans=max(ans,cnt);
            if(a[i]<a[i+1]) cnt++;
            else cnt=0;
            ans=max(ans,cnt);
