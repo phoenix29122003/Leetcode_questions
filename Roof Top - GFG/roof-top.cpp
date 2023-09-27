@@ -10,19 +10,15 @@ class Solution
     public:
     //Function to find maximum number of consecutive steps 
     //to gain an increase in altitude with each step.
-    int maxStep(int A[], int N)
+    int maxStep(int a[], int n)
     {
-       int ans=0,curr=0;
-       for(int i=0;i<N-1;i++)
-       {
-           if(A[i]<A[i+1]) curr++;
-           else 
-           {
-               ans=max(ans,curr);
-               curr=0;
-           }
+       int ans=0,cnt=0;
+       for(int i=0;i<n-1;i++){
+           ans=max(ans,cnt);
+           if(a[i]<a[i+1]) cnt++;
+           else cnt=0;
+           ans=max(ans,cnt);
        }
-       ans=max(ans,curr);
        return ans;
     }
 };
