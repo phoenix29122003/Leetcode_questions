@@ -1,18 +1,22 @@
 class Solution {
 public:
-    int solve(vector<int>costs,int i,vector<bool>map,vector<int>&dp)
-    {
-        if(i>365) return 0;
-        if(dp[i]!=-1) return dp[i];
-        if(!map[i]) return dp[i]=solve(costs,i+1,map,dp);
-        return dp[i]=min({costs[0]+solve(costs,i+1,map,dp),
-                           costs[1]+solve(costs,i+7,map,dp),
-                           costs[2]+solve(costs,i+30,map,dp)});
+    int dp[366];
+    int solve(vector<bool>&cal,int idx,int n,vector<int>&cost){
+        if(idx>=n) return 0;
+        if(dp[idx]!=-1) return dp[idx];
+        int tempcost;
+        if(cal[idx]){
+            tempcost=min({cost[0]+solve(cal,idx+1,n,cost),
+                          cost[1]+solve(cal,idx+7,n,cost),
+                          cost[2]+solve(cal,idx+30,n,cost)});
+        }
+        else tempcost=0+solve(cal,idx+1,n,cost);
+        return dp[idx]=tempcost;
     }
-    int mincostTickets(vector<int>& days, vector<int>& costs) {
-        vector<bool>map(366,false);
-        vector<int>dp(366,-1);
-        for(int i=0;i<days.size();i++) map[days[i]]=true;
-        return solve(costs,0,map,dp);
+    int mincostTickets(vector<int>& days, vector<int>& cost) {
+        memset(dp,-1,sizeof(dp));
+        vector<bool>cal(366,false);
+        for(auto it:days) cal[it]=true;
+        return solve(cal,1,cal.size(),cost);
     }
 };
