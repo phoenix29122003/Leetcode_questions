@@ -10,13 +10,12 @@ class Solution{
 public:	
 	// Returns count buildings that can see sunlight
 	int countBuildings(int h[], int n) {
-	    int ans=1,maxi=h[0];
-	    for(int i=1;i<n;i++)
-	    {
-	        if(h[i]>maxi)
-	        {
-	            maxi=h[i];
+	    // code here
+	    int ans=1,curr=h[0];
+	    for(int i=1;i<n;i++){
+	        if(h[i]>curr){
 	            ans++;
+	            curr=h[i];
 	        }
 	    }
 	    return ans;
