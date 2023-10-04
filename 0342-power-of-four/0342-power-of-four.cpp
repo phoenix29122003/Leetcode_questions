@@ -1,9 +1,11 @@
 class Solution {
 public:
     bool isPowerOfFour(int n) {
-        if(n<0) return false;
-        int cnt=__builtin_popcount(n);
-        if(cnt==1 && ((int)log2(n))%2==0) return true;
-        return false;
+        if(n<=0) return false;
+        long long logfloor=floor((double)log2(n));
+        long long logceil=ceil((double)log2(n));
+        if(logfloor!=logceil) return false;
+        if(logfloor%2==0) return true;
+        else return false;
     }
 };
