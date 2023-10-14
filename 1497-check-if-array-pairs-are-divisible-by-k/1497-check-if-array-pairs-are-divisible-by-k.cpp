@@ -1,10 +1,19 @@
 class Solution {
 public:
-    map<int,int>mp;
-    bool canArrange(vector<int>& arr, int k) {
-        for(int i=0;i<arr.size();i++) mp[((arr[i]%k+k)%k)]++;
-        if(mp[0]%2==1) return false;
-        for(int i=1;i<k;i++) if(mp[i]!=mp[k-i]) return false;
+    bool canArrange(vector<int>& nums, int k) {
+        unordered_map<int,int>mp;
+        for(auto it:nums){
+            mp[((it%k)+k)%k]++;
+            cout<<it%k<<" "<<endl;
+        } 
+        for(auto it:mp){
+            if(it.first==0){
+                if(it.second%2==1) return false;
+            }
+            else{
+                if(it.second!=mp[k-it.first]) return false;
+            }
+        }
         return true;
     }
 };
