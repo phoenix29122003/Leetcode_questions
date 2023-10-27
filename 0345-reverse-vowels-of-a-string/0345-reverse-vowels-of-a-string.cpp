@@ -1,16 +1,15 @@
 class Solution {
 public:
-    bool check(char c)
-    {
-        return (c=='a'||c=='A'||c=='e'||c=='E'||c=='i'||c=='I'||c=='o'||c=='O'||c=='u'||c=='U');
-    }
     string reverseVowels(string s) {
-        int l=0,h=s.length()-1;
-        while(l<h)
-        {
-            if(!check(s[l])) l++;
-            else if(!check(s[h])) h--;
-            else swap(s[l++],s[h--]);
+        int n=s.length();
+        string dum="";
+        for(int i=0;i<n;i++){
+            if(s[i]=='a' || s[i]=='A' || s[i]=='e' || s[i]=='E' || s[i]=='i' || s[i]=='I' || s[i]=='o' || s[i]=='O' || s[i]=='u' || s[i]=='U') dum+=s[i];
+        }
+        reverse(dum.begin(),dum.end());
+        int j=0;
+        for(int i=0;i<n;i++){
+            if(s[i]=='a' || s[i]=='A' || s[i]=='e' || s[i]=='E' || s[i]=='i' || s[i]=='I' || s[i]=='o' || s[i]=='O' || s[i]=='u' || s[i]=='U') s[i]=dum[j++];
         }
         return s;
     }
