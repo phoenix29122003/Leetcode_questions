@@ -1,11 +1,11 @@
 class Solution {
 public:
     int maxCount(int m, int n, vector<vector<int>>& ops) {
-        int res_m=m,res_n=n;
-        for(auto op:ops) {
-            res_m=min(res_m,op[0]); 
-            res_n=min(res_n,op[1]);
+        int a=m,b=n,q=ops.size();
+        for(int i=0;i<q;i++){
+            a=min(a,ops[i][0]);
+            b=min(b,ops[i][1]);
         }
-        return res_m*res_n;
+        return a*b;
     }
 };
