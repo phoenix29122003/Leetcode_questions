@@ -5,13 +5,21 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
 public:
-    bool isbipertite(int node,int col,vector<int>adj[],vector<int>&color){
-        color[node]=col;
-        for(auto it:adj[node]){
-            if(color[it]==-1){
-                if(isbipertite(it,!col,adj,color)==false) return false;
+    bool isbipertite(int src,int col,vector<int>adj[],vector<int>&color){
+        queue<int>q;
+        q.push(src);
+        color[src]=col;
+        while(q.size()){
+            int node=q.front();
+            int colorofnode=color[node];
+            q.pop();
+            for(auto it:adj[node]){
+                if(color[it]==-1){
+                    color[it]=!colorofnode;
+                    q.push(it);
+                }
+                else if(color[it]==color[node]) return false;
             }
-            else if(color[it]==color[node]) return false;
         }
         return true;
     }
