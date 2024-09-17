@@ -1,15 +1,14 @@
 class Solution {
 public:
     int pivotIndex(vector<int>& nums) {
-        int ans=-1,sum=0;
-        for(int i=0;i<nums.size();i++) sum+=nums[i];
-        int left=0,right=0;
-        for(int i=0;i<nums.size();i++)
-        {
-            right=sum-left-nums[i];
-            if(left==right) return i;
-            left+=nums[i];
+        int rs=0,n=nums.size(),ls=0;
+        for(int i=0;i<n;i++) rs+=nums[i];
+        for(int i=0;i<n;i++){
+            rs-=nums[i];
+            if(ls==rs) return i;
+            // cout<<"ls: "<<ls<<" rs: "<<rs<<endl;
+            ls+=nums[i];
         }
-        return ans;
+        return -1;
     }
 };
