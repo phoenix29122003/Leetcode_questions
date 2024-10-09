@@ -1,15 +1,19 @@
 class Solution {
 public:
-    int solve(vector<int>&nums,int pos,vector<int>&dp)
-    {
-        if(pos>=nums.size()-1) return 0;
-        if(dp[pos]!=10001) return dp[pos];
-        int ans=10001;
-        for(int i=1;i<=nums[pos];i++) ans=min(ans,1+solve(nums,pos+i,dp));
-        return dp[pos]=ans;
+    int solve(vector<int>&nums,int idx,int n,vector<int>&dp){
+        if(idx==n-1) return 0;
+        if(idx>=n) return 10000000;
+        if(nums[idx]==0) return 10000000;
+        if(dp[idx]!=-1) return dp[idx];
+        int ans=INT_MAX;
+        for(int i=1;i<=nums[idx];i++){
+            int step=1+solve(nums,idx+i,n,dp);
+            ans=min(ans,step);
+        }
+        return dp[idx]=ans;
     }
     int jump(vector<int>& nums) {
-        vector<int>dp(nums.size()+1,10001);
-        return solve(nums,0,dp);
+        vector<int>dp(nums.size()+1,-1);
+        return solve(nums,0,nums.size(),dp);
     }
 };
