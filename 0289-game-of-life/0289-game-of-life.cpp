@@ -1,44 +1,30 @@
 class Solution {
 public:
-    int help(vector<vector<int>>& board,int i,int j,int n,int m)
-    {
-        int c=0;
-        if(i>0) if(board[i-1][j]==1 || board[i-1][j]==3) c++;
-        if(j>0) if(board[i][j-1]==1 || board[i][j-1]==3) c++;
-        if(i<n-1) if(board[i+1][j]==1 || board[i+1][j]==3) c++;
-        if(j<m-1) if(board[i][j+1]==1 || board[i][j+1]==3) c++;
-        if(i>0 && j>0) if(board[i-1][j-1]==1 || board[i-1][j-1]==3) c++;
-        if(i>0 && j<m-1) if(board[i-1][j+1]==1 || board[i-1][j+1]==3) c++;
-        if(i<n-1 && j>0) if(board[i+1][j-1]==1 || board[i+1][j-1]==3) c++;
-        if(i<n-1 && j<m-1) if(board[i+1][j+1]==1 || board[i+1][j+1]==3) c++;
-        return c;
+    int solve(vector<vector<int>>& dummy_board,int i,int j,int m,int n){
+        int cnt=0;
+        if(i-1>=0 && dummy_board[i-1][j]==1) cnt+=1;
+        if(i+1<m && dummy_board[i+1][j]==1) cnt+=1;
+        if(j-1>=0 && dummy_board[i][j-1]==1) cnt+=1;
+        if(j+1<n && dummy_board[i][j+1]==1) cnt+=1;
+        if(i-1>=0 && j-1>=0 && dummy_board[i-1][j-1]==1) cnt+=1;
+        if(i+1<m && j+1<n && dummy_board[i+1][j+1]==1) cnt+=1;
+        if(i+1<m && j-1>=0 && dummy_board[i+1][j-1]==1) cnt+=1;
+        if(i-1>=0 && j+1<n &&dummy_board[i-1][j+1]==1) cnt+=1;
+        return cnt;
     }
     void gameOfLife(vector<vector<int>>& board) {
-        int n=board.size();
-        int m=board[0].size();
-        for(int i=0;i<n;i++)
-        {
-            for(int j=0;j<m;j++)
-            {
-                int c=help(board,i,j,n,m);
-                if(board[i][j]==0)
-                {
-                    if(c==3) board[i][j]=2;
+        vector<vector<int>>dummy_board=board;
+        int m=board.size(),n=board[0].size();
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                int cnt=solve(dummy_board,i,j,m,n);
+                if(board[i][j]==0 && cnt==3){
+                    board[i][j]=1;
                 }
-                else if(board[i][j]==1)
-                {
-                    if(c<2 || c>3) board[i][j]=3;
-                    if(c==2 || c==3) board[i][j]=1;
-                }
+                else if(board[i][j]==1 && cnt<2) board[i][j]=0;
+                else if(board[i][j]==1 && cnt>3) board[i][j]=0;
+                else if(board[i][j]==1 && (cnt==2 || cnt==3)) board[i][j]=1;
             }
         }
-        for(int i=0;i<n;i++)
-        {
-            for(int j=0;j<m;j++)
-            {
-                if(board[i][j]==2) board[i][j]=1;
-                else if(board[i][j]==3) board[i][j]=0;
-		    }
-	    }
     }
 };
