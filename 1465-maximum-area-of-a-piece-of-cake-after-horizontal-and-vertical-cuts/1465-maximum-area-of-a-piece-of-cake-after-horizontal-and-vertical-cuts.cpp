@@ -1,12 +1,16 @@
 class Solution {
 public:
-    int maxArea(int a, int b, vector<int>& hc, vector<int>& vc) {
-        hc.insert(hc.begin(),0),hc.push_back(a);
-        vc.insert(vc.begin(),0),vc.push_back(b);
-        sort(hc.begin(),hc.end()),sort(vc.begin(),vc.end());
-        int hdiff=0,vdiff=0;
-        for(int i=1;i<hc.size();i++) hdiff=max(hdiff,hc[i]-hc[i-1]);
-        for(int i=1;i<vc.size();i++) vdiff=max(vdiff,vc[i]-vc[i-1]);
-        return (1LL*hdiff*vdiff)%1000000007;
+    int maxArea(int h, int w, vector<int>& hcut, vector<int>& vcut) {
+        long long ans=0,m=hcut.size(),n=vcut.size();
+        int hmax=INT_MIN,vmax=INT_MIN;
+        sort(hcut.begin(),hcut.end());
+        sort(vcut.begin(),vcut.end());
+        for(int i=0;i<m-1;i++) hmax=max(hmax,abs(hcut[i]-hcut[i+1]));
+        for(int i=0;i<n-1;i++) vmax=max(vmax,abs(vcut[i]-vcut[i+1]));
+        hmax=max(hmax,max(hcut[0]-0,h-hcut[m-1]));
+        vmax=max(vmax,max(vcut[0]-0,w-vcut[n-1]));
+        cout<<"hmax: "<<hmax<<endl;
+        cout<<"vmax: "<<vmax<<endl;
+        return ((1LL*hmax*vmax)%1000000007);
     }
 };
