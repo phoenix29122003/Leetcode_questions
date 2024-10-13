@@ -1,22 +1,21 @@
 class Solution {
 public:
-    int dp[10001];
-    bool solve(vector<int>&nums,int idx,int n){
-        if(idx==n-1) return true;
-        else if(idx>=n) return false;
-        if(nums[idx]==0) return false;
+    int solve(vector<int>&nums,int idx,int n,vector<int>&dp){
+        if(idx==n-1) return 1;
+        else if(idx>=n) return 0;
+        else if(nums[idx]==0) return 0;
         if(dp[idx]!=-1) return dp[idx];
-        int ans=false;
+        bool flag=0;
         for(int i=1;i<=nums[idx];i++){
-            if(solve(nums,idx+i,n)) {
-                ans=true;
+            if(solve(nums,idx+i,n,dp)){
+                flag=1;
                 break;
             }
         }
-        return dp[idx]=ans;
+        return dp[idx]=flag;
     }
     bool canJump(vector<int>& nums) {
-        memset(dp,-1,sizeof(dp));
-        return solve(nums,0,nums.size());
+        vector<int>dp(nums.size()+1,-1);
+        return solve(nums,0,nums.size(),dp);
     }
 };
