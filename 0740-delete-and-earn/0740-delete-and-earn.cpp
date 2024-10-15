@@ -1,21 +1,21 @@
 class Solution {
 public:
-    int dp[20001];
-    int solve(vector<int>&nums,int idx){
-        if(idx>=nums.size()) return 0;
+    int solve(vector<int>&nums,int idx,int n,vector<int>&dp){
+        if(idx>=n) return 0;
         if(dp[idx]!=-1) return dp[idx];
-        int curr=nums[idx];
-        int i=idx,sum=0;
-        while(i<nums.size() && nums[i]==curr) i++,sum+=curr;
-        int j=i;
-        while(j<nums.size() && nums[j]==curr+1) j++;
-        int nottake=solve(nums,i);
-        int take=sum+solve(nums,j);
-        return dp[idx]=max(take,nottake);
+        int sum=0;
+        int not_skip=idx;
+        while(not_skip<n && nums[not_skip]==nums[idx]){
+            sum+=nums[not_skip];
+            not_skip++;
+        }
+        int skip=not_skip;
+        while(skip<n && nums[skip]==nums[idx]+1) skip++;
+        return dp[idx]=max(sum+solve(nums,skip,n,dp),solve(nums,not_skip,n,dp));
     }
     int deleteAndEarn(vector<int>& nums) {
         sort(nums.begin(),nums.end());
-        memset(dp,-1,sizeof(dp));
-        return solve(nums,0);
+        vector<int>dp(nums.size()+1,-1);
+        return solve(nums,0,nums.size(),dp);
     }
 };
