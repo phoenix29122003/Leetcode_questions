@@ -1,16 +1,15 @@
 class Solution {
 public:
-    int dp[501][501];
-    int solve(string s,string t,int i,int j){
-        if(i==-1 && j==-1) return 0;
-        else if(i==-1) return j+1;
-        else if(j==-1) return i+1;
+    int solve(string &s,string &t,int i,int j,int m,int n,vector<vector<int>>&dp){
+        if(i==m && j==n) return 0;
+        if(i==m) return n-j;
+        if(j==n) return m-i;
         if(dp[i][j]!=-1) return dp[i][j];
-        if(s[i]==t[j]) return dp[i][j]=solve(s,t,i-1,j-1);
-        else return dp[i][j]=1+min({solve(s,t,i-1,j-1),solve(s,t,i-1,j),solve(s,t,i,j-1)});
+        if(s[i]==t[j]) return dp[i][j]=solve(s,t,i+1,j+1,m,n,dp);
+        else return dp[i][j]=1+min(solve(s,t,i+1,j,m,n,dp),min(solve(s,t,i,j+1,m,n,dp),solve(s,t,i+1,j+1,m,n,dp)));
     }
-    int minDistance(string s, string t) {
-        memset(dp,-1,sizeof(dp));
-        return solve(s,t,s.length()-1,t.length()-1);
+    int minDistance(string word1, string word2) {
+        vector<vector<int>>dp(word1.size(),vector<int>(word2.size(),-1));
+        return solve(word1,word2,0,0,word1.size(),word2.size(),dp);
     }
 };
