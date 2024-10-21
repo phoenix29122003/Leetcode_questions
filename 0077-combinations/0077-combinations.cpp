@@ -4,6 +4,7 @@ public:
         if(ds.size()==k){
             ans.push_back(ds);
         }
+        if(ds.size()>k) return;
         for(int i=idx;i<=n;i++){
             ds.push_back(i);
             solve(i+1,n,k,ds,ans);
