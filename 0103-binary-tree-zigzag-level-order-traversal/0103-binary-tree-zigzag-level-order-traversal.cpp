@@ -6,12 +6,10 @@ public:
         queue<TreeNode*>q;
         q.push(root);
         int f=0;
-        while(!q.empty())
-        {
+        while(q.size()){
             int sz=q.size();
             vector<int>ds;
-            for(int i=0;i<sz;i++)
-            {
+            for(int i=0;i<sz;i++){
                 TreeNode *curr=q.front();
                 q.pop();
                 ds.push_back(curr->val);
