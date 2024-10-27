@@ -1,22 +1,14 @@
-/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
- */
 class Solution {
 public:
-    bool solve(TreeNode* m, TreeNode* t)
-    {
-        if(m==NULL || t==NULL) return m==t;
-        return (m->val==t->val) && solve(m->left,t->left) && solve(m->right,t->right);
+    bool match(TreeNode *tree1,TreeNode *tree2){
+        if(tree1==NULL && tree2==NULL) return true;
+        if(tree1==NULL || tree2==NULL) return false;
+        if(tree1->val!=tree2->val) return false;
+        return match(tree1->left,tree2->left)&&match(tree1->right,tree2->right);
     }
-    bool isSubtree(TreeNode* m, TreeNode* t) {
-        return solve(m,t)||(m->left && isSubtree(m->left,t)||(m->right && isSubtree(m->right,t)));
+    bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+        if(root==NULL && subRoot==NULL) return true;
+        if(root==NULL || subRoot==NULL) return false;
+        return match(root,subRoot)||isSubtree(root->left,subRoot)||isSubtree(root->right,subRoot);
     }
 };
