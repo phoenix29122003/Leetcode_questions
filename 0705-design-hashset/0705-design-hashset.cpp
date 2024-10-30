@@ -1,18 +1,19 @@
 class MyHashSet {
 public:
-    bool set[1000001];
+    int mp[1000001];
     MyHashSet() {
-        memset(set,false,sizeof(set));
+        fill(mp,mp+1000001,-1);
     }
+    
     void add(int key) {
-        set[key]=true;
+        mp[key]=1;
     }
     
     void remove(int key) {
-        set[key]=false;
+        mp[key]=-1;
     }
     
     bool contains(int key) {
-        return set[key];
+        return mp[key]==1;
     }
 };
