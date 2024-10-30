@@ -1,12 +1,18 @@
 class Solution {
 public:
     int getDecimalValue(ListNode* head) {
-        string s="";
-        while(head)
-        {
-            s+=(head->val+'0');
-            head=head->next;
+        int ans=0,cnt=0;
+        ListNode *dum=head;
+        while(dum){
+            cnt++;
+            dum=dum->next;
         }
-        return stoi(s,0,2);
+        cnt--;
+        while(head){
+            ans+=pow(2,cnt)*(head->val);
+            head=head->next;
+            cnt--;
+        }
+        return ans;
     }
 };
