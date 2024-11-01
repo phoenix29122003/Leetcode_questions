@@ -1,18 +1,18 @@
 class Solution {
 public:
-    void solve(TreeNode *root,int target,unordered_map<long long,int>mp,long long curr,int &ans){
+    void solve(TreeNode *root,int target,long long sum,long long &ans,unordered_map<long long,int>mp){
         if(root==NULL) return;
-        curr+=root->val;
-        if(curr==target) ans++;
-        if(mp.find(curr-target)!=mp.end()) ans+=mp[curr-target];
-        mp[curr]++;
-        solve(root->left,target,mp,curr,ans);
-        solve(root->right,target,mp,curr,ans);
+        sum+=root->val;
+        if(sum==target) ans++;
+        if(mp.find(sum-target)!=mp.end()) ans+=mp[sum-target];
+        mp[sum]++;
+        solve(root->left,target,sum,ans,mp);
+        solve(root->right,target,sum,ans,mp);
     }
     int pathSum(TreeNode* root, int target) {
-        int ans=0;
         unordered_map<long long,int>mp;
-        solve(root,target,mp,0,ans);
+        long long sum=0,ans=0;
+        solve(root,target,sum,ans,mp);
         return ans;
     }
 };
