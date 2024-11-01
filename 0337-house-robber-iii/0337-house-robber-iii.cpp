@@ -1,17 +1,16 @@
 class Solution {
 public:
-    unordered_map<TreeNode*,int>mp;
-    int solve(TreeNode *root){
+    int solve(TreeNode *root,unordered_map<TreeNode*,int>&dp){
         if(root==NULL) return 0;
-        if(mp.find(root)!=mp.end()) return mp[root];
-        int pick,notpick;
-        pick=root->val;
-        if(root->left) pick+=solve(root->left->left)+solve(root->left->right);
-        if(root->right) pick+=solve(root->right->left)+solve(root->right->right);
-        notpick=solve(root->left)+solve(root->right);
-        return mp[root]=max(pick,notpick);
+        if(dp.find(root)!=dp.end()) return dp[root];
+        int take=root->val;
+        if(root->left) take+=solve(root->left->left,dp)+solve(root->left->right,dp);
+        if(root->right) take+=solve(root->right->left,dp)+solve(root->right->right,dp);
+        int not_take=solve(root->left,dp)+solve(root->right,dp);
+        return dp[root]=max(take,not_take);
     }
     int rob(TreeNode* root) {
-        return solve(root);
+        unordered_map<TreeNode*,int>dp;
+        return solve(root,dp);
     }
 };
