@@ -1,22 +1,22 @@
 class Solution {
 public:
-    bool isConcat(string word,unordered_set<string>& st,unordered_map<string,bool>& mp){
-    int n = word.size();
-    if(mp.count(word))return mp[word];
-    for(int i=1;i<n;i++){
-        string prefix = word.substr(i);
-        if(st.count(word.substr(0,i))&&(st.count(prefix)||isConcat(prefix,st,mp)))return mp[word] = true;
+    bool solve(string &s,int idx,unordered_set<string>&set,unordered_map<int,bool>&dp,int cut){
+        if(idx==s.length()){
+            return cut>=2?dp[idx]=true:dp[idx]=false;
+        }
+        if(dp.find(idx)!=dp.end()) return dp[idx];
+        for(int i=idx;i<s.length();i++){
+            string prefix=s.substr(idx,i-idx+1);
+            if(set.find(prefix)!=set.end() && solve(s,i+1,set,dp,cut+1)) return dp[idx]=true;
+        }
+        return dp[idx]=false;
     }
-    return mp[word] = false;
-}
     vector<string> findAllConcatenatedWordsInADict(vector<string>& words) {
-        if(words.size()==0)return {};
-        unordered_set<string> st;
-        unordered_map<string,bool> mp;
-        vector<string> ans;
-        for(auto word:words)st.insert(word);
-        for(auto word:words){
-            if(isConcat(word,st,mp))ans.push_back(word);
+        vector<string>ans;
+        unordered_set<string>set(words.begin(),words.end());
+        for(int i=0;i<words.size();i++){
+            unordered_map<int, bool> dp;
+            if(solve(words[i],0,set,dp,0)==true) ans.push_back(words[i]);
         }
         return ans;
     }
