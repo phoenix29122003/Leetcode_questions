@@ -1,15 +1,14 @@
 class Solution {
 public:
-    int dp[20];
-    int solve(int n){
+    int solve(int n,vector<int>&dp){
         if(n<=1) return 1;
         if(dp[n]!=-1) return dp[n];
         int ans=0;
-        for(int i=1;i<=n;i++) ans+=solve(i-1)*solve(n-i);
+        for(int i=0;i<n;i++) ans+=solve(i,dp)*solve(n-i-1,dp);
         return dp[n]=ans;
     }
     int numTrees(int n) {
-        memset(dp,-1,sizeof(dp));
-        return solve(n);
+        vector<int>dp(n+1,-1);
+        return solve(n,dp);
     }
 };
