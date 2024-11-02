@@ -5,13 +5,15 @@ public:
         queue<Node*>q;
         q.push(root);
         while(q.size()){
-            int n=q.size();
-            for(int i=0;i<n;i++){
-                auto curr=q.front();
+            int sz=q.size();
+            Node *prev=NULL;
+            for(int i=sz-1;i>=0;i--){
+                Node *curr=q.front();
                 q.pop();
-                if(i!=n-1) curr->next=q.front();
-                if(curr->left) q.push(curr->left);
+                if(prev) curr->next=prev;
+                prev=curr;
                 if(curr->right) q.push(curr->right);
+                if(curr->left) q.push(curr->left);
             }
         }
         return root;
