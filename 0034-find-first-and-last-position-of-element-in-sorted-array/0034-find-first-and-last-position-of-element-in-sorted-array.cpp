@@ -1,23 +1,34 @@
 class Solution {
 public:
-    int bs(vector<int>nums,int target,int flag)
-    {
-        int l=0,r=nums.size()-1,m;
+    int firstIdx(vector<int>&nums,int i,int j,int target){
         int ans=-1;
-        while(l<=r)
-        {
-            m=(l+r)/2;
-            if(nums[m]==target)
-            {
-                if(flag==0) ans=m,r=m-1;
-                else ans=m,l=m+1;
+        while(i<=j){
+            int m=(i+j)/2;
+            if(nums[m]==target){
+                ans=m;
+                j=m-1;
             }
-            else if(nums[m]>target) r=m-1;
-            else l=m+1;
+            else if(nums[m]<target) i=m+1;
+            else j=m-1;
+        }
+        return ans;
+    }
+    int secondIdx(vector<int>&nums,int i,int j,int target){
+        int ans=-1;
+        while(i<=j){
+            int m=(i+j)/2;
+            if(nums[m]==target){
+                ans=m;
+                i=m+1;
+            }
+            else if(nums[m]<target) i=m+1;
+            else j=m-1;
         }
         return ans;
     }
     vector<int> searchRange(vector<int>& nums, int target) {
-        return {bs(nums,target,0),bs(nums,target,1)};
+        int fIdx=firstIdx(nums,0,nums.size()-1,target);
+        int sIdx=secondIdx(nums,0,nums.size()-1,target);
+        return {fIdx,sIdx};
     }
 };
