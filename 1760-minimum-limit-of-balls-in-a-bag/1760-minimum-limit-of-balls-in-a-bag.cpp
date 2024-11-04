@@ -1,19 +1,23 @@
 class Solution {
 public:
-    bool check(vector<int>nums,int cutsize,int maxcut){
-        int cutcnt=0;
-        for(auto it:nums){
-            if(it>cutsize) cutcnt+=(it-1)/cutsize;
+    bool solve(vector<int>&nums,int n,int mid,int op){
+        int opr=0;
+        for(int i=0;i<n;i++){
+            if(nums[i]<=mid) continue;
+            opr+=(nums[i]-1)/mid;
         }
-        return cutcnt<=maxcut;
+        return opr<=op;
     }
-    int minimumSize(vector<int>& nums, int k) {
-        int l=1,h=INT_MIN,ans;
-        for(auto it:nums) h=max(h,it);
-        while(l<=h){
-            int m=(l+h)/2;
-            if(check(nums,m,k)) ans=m,h=m-1;
-            else l=m+1;
+    int minimumSize(vector<int>& nums, int op) {
+        int ans=-1,i=1,j=nums[0],n=nums.size();
+        for(int i=0;i<n;i++) j=max(j,nums[i]);
+        while(i<=j){
+            int mid=(i+j)/2;
+            if(solve(nums,n,mid,op)){
+                ans=mid;
+                j=mid-1;
+            }
+            else i=mid+1;
         }
         return ans;
     }
