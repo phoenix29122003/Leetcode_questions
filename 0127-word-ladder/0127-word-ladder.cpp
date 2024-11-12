@@ -1,28 +1,28 @@
 class Solution {
 public:
-    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {    
-        unordered_set<string> dict(wordList.begin(), wordList.end());
-        queue<string> todo;
-        todo.push(beginWord);
-        int ladder = 1;
-        while (!todo.empty()) {
-            int n = todo.size();
-            for (int i = 0; i < n; i++) {
-                string word = todo.front();
-                todo.pop();
-                if (word == endWord) {
-                    return ladder;
-                }
-                dict.erase(word);
-                for (int j = 0; j < word.size(); j++) {
-                    char c = word[j];
-                    for (int k = 0; k < 26; k++) {
-                        word[j] = 'a' + k;
-                        if (dict.find(word) != dict.end()) {
-                            todo.push(word);
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+        unordered_set<string>set(wordList.begin(),wordList.end());
+        queue<string>q;
+        if(set.find(endWord)==set.end()) return 0;
+        q.push(beginWord);
+        int ladder=1;
+        while(q.size()){
+            int sz=q.size();
+            while(sz--){
+                string node=q.front();
+                q.pop();
+                if(node==endWord) return ladder;
+                for(int i=0;i<node.length();i++){
+                    char chr=node[i];
+                    for(char ch='a';ch<='z';ch++){
+                        if(ch==chr) continue;
+                        node[i]=ch;
+                        if(set.find(node)!=set.end()){
+                            set.erase(node);
+                            q.push(node);
                         }
-                     }
-                    word[j] = c;
+                    }
+                    node[i]=chr;
                 }
             }
             ladder++;
