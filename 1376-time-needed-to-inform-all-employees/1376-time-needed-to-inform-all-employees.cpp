@@ -1,22 +1,17 @@
 class Solution {
 public:
-    int numOfMinutes(int m, int hid, vector<int>& man, vector<int>& time) {
-        int ans=0;
-        unordered_map<int,vector<int>>tree;
-        for(int i=0;i<m;i++) tree[man[i]].push_back(i);
-        queue<pair<int,int>>q;
-        q.push({hid,0});
-        while(q.size()){
-            int n=q.size();
-            while(n--){
-                int node=q.front().first;
-                int timetillnow=q.front().second;
-                q.pop();
-                int timetakentochild=timetillnow+time[node];
-                ans=max(ans,timetakentochild);
-                for(auto it:tree[node]) q.push({it,timetakentochild});
-            }
+    int dfs(int headID,vector<int>& informTime,unordered_map<int,vector<int>>&graph){
+        int time=informTime[headID],level_time=0;
+        for(auto it:graph[headID]){
+            level_time=max(level_time,dfs(it,informTime,graph));
         }
-        return ans;
+        return time+level_time;
+    }
+    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) {
+        unordered_map<int,vector<int>>graph;
+        for(int i=0;i<manager.size();i++){
+            graph[manager[i]].push_back(i);
+        }
+        return dfs(headID,informTime,graph);
     }
 };
