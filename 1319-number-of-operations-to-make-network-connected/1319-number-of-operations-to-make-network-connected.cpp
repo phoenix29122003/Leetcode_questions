@@ -1,31 +1,30 @@
-
 class Solution {
-private:
-    void dfs(vector<vector<int>>&adj,vector<bool>&visited,int src)
-    {
-        visited[src]=true;
-        for(int i:adj[src])
-            if(!visited[i])
-                dfs(adj,visited,i);
-    }
 public:
-    int makeConnected(int n, vector<vector<int>>& connections) {
-        
-        if(connections.size()<n-1) return -1;
-        vector<vector<int>>adj(n);
-        for(auto v:connections)
-        {
-            adj[v[0]].push_back(v[1]);
-            adj[v[1]].push_back(v[0]);
-        }
-        vector<bool>visited(n,false);
-        int components=0;
-        for(int i=0;i<n;i++)
-            if(!visited[i])
-            {
-                dfs(adj,visited,i);
-                components++;
+    void dfs(unordered_map<int,vector<int>>&graph,int node,vector<int>&visited){
+        visited[node]=true;
+        for(auto neigh:graph[node]){
+            if(visited[neigh]==false){
+                dfs(graph,neigh,visited);
             }
-        return components-1;
+        }
+    }
+    int makeConnected(int n, vector<vector<int>>& connections) {
+        int m=connections.size();
+        if(m<n-1) return -1;
+        int cnt=0;
+        unordered_map<int,vector<int>>graph;
+        for(auto it:connections){
+            int from=it[0],to=it[1];
+            graph[from].push_back(to);
+            graph[to].push_back(from);
+        }
+        vector<int>visited(n,false);
+        for(int i=0;i<n;i++){
+            if(visited[i]==false){
+                cnt++;
+                dfs(graph,i,visited);
+            }
+        }
+        return cnt-1;
     }
 };
