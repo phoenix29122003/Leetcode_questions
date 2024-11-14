@@ -4,23 +4,18 @@ public:
         int n=s.length();
         stack<pair<char,int>>st;
         for(int i=0;i<n;i++){
-            if(st.size() && st.top().first==s[i] && st.top().second==k-1) st.pop();
-            else if(st.size() && st.top().first==s[i]){
-                char ch=st.top().first;
-                int freq=st.top().second;
-                st.pop();
-                st.push({ch,freq+1});
+            if(st.size() && st.top().first==s[i]){
+                st.top().second++;
+                if(st.top().second==k) st.pop();
             }
             else st.push({s[i],1});
         }
         string ans="";
         while(st.size()){
             char ch=st.top().first;
-            int freq=st.top().second;
+            int fq=st.top().second;
+            while(fq--) ans+=ch;
             st.pop();
-            while(freq--){
-                ans+=ch;
-            }
         }
         reverse(ans.begin(),ans.end());
         return ans;
