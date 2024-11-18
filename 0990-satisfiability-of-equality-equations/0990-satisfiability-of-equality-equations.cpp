@@ -1,13 +1,40 @@
 class Solution {
 public:
-    int uf[26];
-    int find(int x) {
-        return uf[x]==x?x:(uf[x]=find(uf[x]));
+    void dfs(char node,unordered_map<char,vector<char>>&graph,unordered_map<char,int>&mp,int color){
+        mp[node]=color;
+        for(auto neigh:graph[node]){
+            if(mp.find(neigh)==mp.end()){
+                dfs(neigh,graph,mp,color);
+            }
+        }
     }
     bool equationsPossible(vector<string>& equations) {
-        for(int i=0;i<26;++i) uf[i]=i;
-        for(auto e:equations) if(e[1]=='=') uf[find(e[0]-'a')]=find(e[3]-'a');
-        for(auto e:equations) if(e[1]=='!' && find(e[0]-'a')==find(e[3]-'a')) return false;
+        unordered_map<char,vector<char>>graph;
+        for(auto eqn:equations){
+            if(eqn[1]=='='){
+                char u=eqn[0],v=eqn[3];
+                graph[u].push_back(v);
+                graph[v].push_back(u);
+            }
+        }
+        unordered_map<char,int>mp;
+        int color=0;
+        for(auto bond:graph){
+            char node=bond.first;
+            if(mp.find(node)==mp.end()){
+                dfs(node,graph,mp,color);
+                color++;
+            }
+        }
+        for(auto eqn:equations){
+            char u=eqn[0],v=eqn[3];
+            if(u==v && eqn[1]=='!') return false;
+            if(eqn[1]=='!'){
+                if(mp.count(u) && mp.count(v) && mp[u]==mp[v]) {
+                    return false;
+                }
+            }
+        }
         return true;
     }
 };
