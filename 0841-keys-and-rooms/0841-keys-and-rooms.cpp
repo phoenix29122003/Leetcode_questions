@@ -1,25 +1,22 @@
 class Solution {
 public:
-    void solve(map<int,vector<int>>&mp,int room,vector<bool>&opened){
-        if(opened[room]==false) return;
-        for(auto it:mp[room]){
-            if(opened[it]==false){
-                opened[it]=true;
-                solve(mp,it,opened);
+    void dfs(int node,vector<vector<int>>&graph,vector<int>&visited){
+        for(auto key:graph[node]){
+            if(visited[key]==1) continue;
+            else{
+                visited[key]=1;
+                dfs(key,graph,visited);
             }
         }
-    }
+    } 
     bool canVisitAllRooms(vector<vector<int>>& rooms) {
         int n=rooms.size();
-        vector<bool>opened(n,false);
-        opened[0]=true;
-        map<int,vector<int>>mp;
-        for(int i=0;i<n;i++)
-            for(int j=0;j<rooms[i].size();j++) mp[i].push_back(rooms[i][j]);
-        for(auto it:mp){
-            solve(mp,it.first,opened);
+        vector<int>visited(n,0);
+        visited[0]=1;
+        dfs(0,rooms,visited);
+        for(int i=0;i<n;i++){
+            if(!visited[i]) return false;
         }
-        for(int i=0;i<n;i++) if(opened[i]==false) return false;
         return true;
     }
 };
