@@ -1,11 +1,15 @@
 class Solution {
 public:
     int findJudge(int n, vector<vector<int>>& trust) {
-        if(n==1 && trust.size()==0) return 1;
-        if(n>1 && trust.size()==0) return -1;
-        unordered_map<int,int>mp,mp2;
-        for(int i=0;i<trust.size();i++) mp[trust[i][1]]++,mp2[trust[i][0]]=trust[i][1];
-        for(auto it:mp) if(it.second==n-1 && mp2.find(it.first)==mp2.end()) return it.first;
+        vector<int>indegree(n+1,0),outdegree(n+1,0);
+        for(auto it:trust){
+            int i=it[0],j=it[1];
+            indegree[j]++;
+            outdegree[i]++;
+        }
+        for(int i=1;i<=n;i++){
+            if(indegree[i]==n-1 && outdegree[i]==0) return i;
+        }
         return -1;
     }
 };
